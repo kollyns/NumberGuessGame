@@ -6,10 +6,6 @@ pipeline {
         maven "Maven"
     }
 
-    environment {
-        // Optional: you can define JAVA_HOME or other env vars here
-    }
-
     stages {
         stage('Checkout Code') {
             steps {
