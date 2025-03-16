@@ -18,9 +18,6 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('SCM') {
-            checkout scm
-        }
 
         stage('Test') {
             steps {
@@ -28,9 +25,11 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
+            steps {
             def mvn = tool 'Maven';
             withSonarQubeEnv() {
                 sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Number-Guess-Game -Dsonar.projectName='Number Guess  Game'"
+                }
             }
          }
 
