@@ -32,7 +32,7 @@ pipeline {
                 -Dsonar.projectKey=Number-Guess-Game \
                 -Dsonar.projectName='Number Guess  Game' \
                 -Dsonar.host.url=http://18.188.79.225:9000 \
-                -Dsonar.login=$SONAR_TOKEN"
+                -Dsonar.login=$SONAR_TOKEN" 
            }
            }
             }
