@@ -26,10 +26,13 @@ pipeline {
         }
         stage('SonarQube Analysis') {
             steps {
-            def mvn = tool 'Maven';
-            withSonarQubeEnv() {
-                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Number-Guess-Game -Dsonar.projectName='Number Guess  Game'"
-                }
+           
+                sh "mvn clean verify sonar:sonar \
+  -Dsonar.projectKey=Number-Guess-Game \
+  -Dsonar.projectName='Number Guess  Game' \
+  -Dsonar.host.url=http://18.188.79.225:9000 \
+  -Dsonar.token=sqp_0ee4ea550e80deaa6bfa9002752d9fd6c342713e"
+            
             }
          }
 
