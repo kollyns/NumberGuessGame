@@ -1,8 +1,7 @@
 pipeline {
     agent any
-
+    options { timestamps()}
     tools {
-        // Use the Maven tool defined in Jenkins Global Tool Configuration
         maven "Maven"
     }
 
@@ -10,18 +9,6 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'main', url: 'https://github.com/kollyns/NumberGuessGame.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh 'mvn test'
             }
         }
         stage('SonarQube Analysis') {
@@ -33,14 +20,25 @@ pipeline {
                 -Dsonar.projectName='Number Guess  Game' \
                 -Dsonar.host.url=http://18.188.79.225:9000 \
                 -Dsonar.login=$SONAR_TOKEN" 
-           }
-           }
+                    }
+                }
             }
          }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
 
         stage('Archive WAR Artifact') {
             steps {
                 archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
             }
         }
 
