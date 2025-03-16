@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/kollyns/number-guess-app.git'
+                git branch: 'main', url: 'https://github.com/kollyns/NumberGuessGame.git'
             }
         }
 
@@ -33,7 +33,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                sh 'scp -i ~/Ceeyit-class.pem target/*.war ec2-user@3.15.140.90:/opt/tomcat/webapps/'
+                sh 'scp -o StrictHostKeyChecking=no -i ~/Ceeyit-class.pem target/*.war ec2-user@3.12.154.250:/home/ec2-user/apache-tomcat-7.0.94/webapps/'
             }
         }
     }
