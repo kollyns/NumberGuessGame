@@ -18,12 +18,21 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+        stage('SCM') {
+            checkout scm
+        }
 
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
+        stage('SonarQube Analysis') {
+            def mvn = tool 'Maven';
+            withSonarQubeEnv() {
+                sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Number-Guess-Game -Dsonar.projectName='Number Guess  Game'"
+            }
+         }
 
         stage('Archive WAR Artifact') {
             steps {
