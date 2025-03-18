@@ -5,7 +5,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        SONAR_PROJECT_KEY = 'Number-Guess-Game'
+        SONAR_PROJECT_KEY = Number-Guess-Game
         SONAR_PROJECT_NAME = 'Number Guess Game'
     }
 
@@ -33,6 +33,7 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn test'
+                junit 'target/surefire-reports/*.xml'
             }
         }
 
