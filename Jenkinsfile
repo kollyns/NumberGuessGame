@@ -5,7 +5,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        SONAR_PROJECT_KEY = Number-Guess-Game
+        SONAR_PROJECT_KEY = 'Number-Guess-Game'
         SONAR_PROJECT_NAME = 'Number Guess Game'
     }
 
@@ -21,8 +21,8 @@ pipeline {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                 sh '''
                 mvn verify sonar:sonar \
-                -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-                -Dsonar.projectName=$SONAR_PROJECT_NAME \
+                -Dsonar.projectKey=Number-Guess-Game \
+                -Dsonar.projectName='Number Guess  Game' \
                 -Dsonar.login=$SONAR_TOKEN
                 '''
                     }
