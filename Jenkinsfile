@@ -43,7 +43,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                sh 'scp -o StrictHostKeyChecking=no -i ~/Ceeyit-class.pem target/*.war ec2-user@3.12.154.250:/home/ec2-user/apache-tomcat-7.0.94/webapps/'
+                sh 'scp -o StrictHostKeyChecking=no -i ~/Ceeyit-class.pem target/*.war ec2-user@3.148.138.66:/home/ec2-user/apache-tomcat-7.0.94/webapps/'
             }
         }
     }
