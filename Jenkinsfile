@@ -18,7 +18,7 @@ pipeline {
                 sh "mvn clean verify sonar:sonar \
                 -Dsonar.projectKey=Number-Guess-Game \
                 -Dsonar.projectName='Number Guess  Game' \
-                -Dsonar.host.url=http://18.188.79.225:9000 \
+                -Dsonar.host.url=http://3.129.146.157:9000 \
                 -Dsonar.login=$SONAR_TOKEN" 
                     }
                 }
