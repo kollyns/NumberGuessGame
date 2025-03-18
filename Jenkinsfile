@@ -2,7 +2,11 @@ pipeline {
     agent any
     options { timestamps()}
     tools {
-        maven "Maven"
+        maven 'Maven'
+    }
+    environment {
+        SONAR_PROJECT_KEY = 'Number-Guess-Game'
+        SONAR_PROJECT_NAME = 'Number Guess Game'
     }
 
     stages {
@@ -15,31 +19,33 @@ pipeline {
             steps {
            withSonarQubeEnv('SonarQube') {
             withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                sh "mvn clean verify sonar:sonar \
-                -Dsonar.projectKey=Number-Guess-Game \
-                -Dsonar.projectName='Number Guess  Game' \
-                -Dsonar.login=$SONAR_TOKEN" 
+                sh '''
+                mvn verify sonar:sonar \
+                -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+                -Dsonar.projectName=$SONAR_PROJECT_NAME \
+                -Dsonar.login=$SONAR_TOKEN
+                '''
                     }
                 }
             }
          }
-
-        stage('Build') {
-            steps {
-                sh 'mvn clean package'
-            }
-        }
-
-        stage('Archive WAR Artifact') {
-            steps {
-                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
-            }
-        }
+     
         stage('Test') {
             steps {
                 sh 'mvn test'
             }
         }
+
+        stage('Build') {
+            steps {
+                sh 'mvn package -DskipTests'
+            }
+        }
+        stage('Archive WAR Artifact') {
+            steps {
+                archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+            }
+        }       
 
         stage('Deploy to Tomcat') {
             steps {
