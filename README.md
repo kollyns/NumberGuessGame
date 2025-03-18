@@ -1,4 +1,4 @@
-# number-guess-app
+# number-guess- - CeeyIT project
 
 The **Number Guess App** application:
 - Java Web Development (Servlet + JSP)
